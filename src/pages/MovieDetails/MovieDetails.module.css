@@ -1,0 +1,36 @@
+.container {
+  margin-top: 15px;
+}
+
+.visuallyHidden {
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+  -webkit-clip-path: inset(100%);
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  border: 0;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+}
+
+.data {
+  padding: 0 15px;
+}
+
+.dataMovies {
+  display: flex;
+  gap: 10px;
+}
+
+.infoMovies {
+  display: block;
+  gap: 5px;
+  list-style: none;
+}
+
+.listLink {
+  margin: 20px 0;
+}
