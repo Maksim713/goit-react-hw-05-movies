@@ -4,6 +4,7 @@ import css from './MoviesSearchList.module.css';
 
 function MoviesSearchList({ movies }) {
   const originPath = useOriginPath();
+
   return (
     <ul className={css.catalogFilms}>
       {movies.map(({ id, title }) => (

@@ -5,6 +5,8 @@ import { IMG_URL } from '../../variables';
 import { useOriginPath } from '../../hooks/useOriginPath';
 import Container from 'components/Container/Container';
 import css from './MovieDetails.module.css';
+import BackButton from 'components/BackButton/BackButton';
+import img from '../../img/No-Image.png';
 
 export default function MovieDetails() {
   const originPath = useOriginPath();
@@ -20,17 +22,22 @@ export default function MovieDetails() {
     <div className={css.container}>
       <Container>
         <h1 className={css.visuallyHidden}>MovieDetails</h1>
+        <BackButton />
         {error && <h1>Error: {error}</h1>}
         {isLoading && <h1>Loading...</h1>}
         {!error && !isLoading && (
           <div className={css.data}>
             <div className={css.dataMovies}>
-              <img
-                src={`${IMG_URL}${backdrop_path}`}
-                alt="poster"
-                width={'50%'}
-                height={'auto'}
-              />
+              {backdrop_path ? (
+                <img
+                  src={`${IMG_URL}${backdrop_path}`}
+                  alt="poster"
+                  width={'50%'}
+                  height={'auto'}
+                />
+              ) : (
+                <img src={`${img}`} alt="" width={200} height={140} />
+              )}
               <ul className={css.infoMovies}>
                 <li>
                   <h2>{title}</h2>
