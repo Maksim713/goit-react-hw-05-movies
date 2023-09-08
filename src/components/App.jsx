@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Header from './Header';
 import Home from '../pages/Home';
@@ -28,6 +28,7 @@ const App = () => {
                 <Route path="reviews" element={<Reviews />} />
                 <Route path="cast" element={<Cast />} />
               </Route>
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </Suspense>
         </div>
