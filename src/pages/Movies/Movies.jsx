@@ -1,25 +1,41 @@
 import { moviesSearchValueCtx } from 'context/moviesSearchValueCtx ';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import css from './Movies.module.css';
 import Container from 'components/Container/Container';
 import MoviesSearchList from 'components/MoviesSearchList/MoviesSearchList';
 import { useSearch } from './useSearch';
 
 function Movies() {
-  const { search, setTotalResults, setMoviesCount } =
+  const { search, setTotalResults, setMoviesCount, updateMovies } =
     useContext(moviesSearchValueCtx);
   const { error, loading, page, setPage, movies, totalPages, totalResults } =
     useSearch({ search });
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [search, setPage]);
 
   useEffect(() => {
     setMoviesCount(movies.length);
     setTotalResults(totalResults);
-  }, [movies.length, setMoviesCount, setTotalResults, totalResults]);
+    setSearchResults(movies);
+    updateMovies(movies);
+  }, [
+    searchResults,
+    setMoviesCount,
+    setTotalResults,
+    totalResults,
+    movies,
+    updateMovies,
+  ]);
 
   return (
     <div className={css.container}>
       <Container>
-        {!error && movies?.length > 0 && <MoviesSearchList movies={movies} />}
+        {!error && searchResults?.length > 0 && (
+          <MoviesSearchList movies={searchResults} />
+        )}
         {error && <div>Error: {error}</div>}
         {loading && <div>Loading...</div>}
         {!loading && !error && page < totalPages && (

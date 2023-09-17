@@ -1,12 +1,15 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import css from './BackButton.module.css';
 
 function BackButton() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const goBack = () => {
-    navigate(-1);
+    if (location.pathname !== '/') {
+      navigate('/');
+    }
   };
 
   return (

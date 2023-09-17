@@ -35,7 +35,7 @@ export const useSearch = ({ search }) => {
         }
         setError(null);
         setMovies(p =>
-          searchRef.current === search ? [...p, ...results] : [...results]
+          searchRef.current === search ? [...results] : [...p, ...results]
         );
         setTotalResults(totalResults);
         setTotalPages(totalPages);

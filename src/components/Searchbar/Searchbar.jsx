@@ -2,16 +2,31 @@ import PropTypes from 'prop-types';
 import { useContext, useEffect } from 'react';
 import css from './Searchbar.module.css';
 import { moviesSearchValueCtx } from 'context/moviesSearchValueCtx ';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Searchbar() {
-  const { setSearch } = useContext(moviesSearchValueCtx);
+  const { setSearch, setSearchResults } = useContext(moviesSearchValueCtx);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const searchQueryParam = queryParams.get('search');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (searchQueryParam) {
+      setSearch(searchQueryParam.toLowerCase().trim());
+    }
+  }, [setSearch, searchQueryParam]);
+
+  useEffect(() => () => setSearch(''), [setSearch]);
 
   const handleFormSubmit = e => {
     e.preventDefault();
-    setSearch(e.target.elements['search'].value.toLowerCase().trim());
-  };
+    const newSearch = e.target.elements['search'].value.toLowerCase().trim();
+    setSearch(newSearch);
 
-  useEffect(() => () => setSearch(''), [setSearch]);
+    setSearchResults([]);
+    navigate(`/movies?search=${newSearch}`);
+  };
 
   return (
     <header className={css.searchbar}>
