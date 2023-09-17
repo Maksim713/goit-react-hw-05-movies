@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom';
 import Container from 'components/Container/Container';
 import { IMG_URL } from 'variables';
 import css from './Home.module.css';
+import { useEffect } from 'react';
 
 function Home() {
   const { isLoading, data, error } = useQuery(
     'trendingMovies',
     fetchTrendingMovies
   );
+
+  useEffect(() => {
+    localStorage.setItem('previousPage', '/');
+  }, []);
 
   if (error) return <h1>Error: {error}</h1>;
   if (isLoading) return <h1>Loading...</h1>;

@@ -17,6 +17,10 @@ function Movies() {
   }, [search, setPage]);
 
   useEffect(() => {
+    localStorage.setItem('previousPage', '/movies');
+  }, []);
+
+  useEffect(() => {
     setMoviesCount(movies.length);
     setTotalResults(totalResults);
     setSearchResults(movies);

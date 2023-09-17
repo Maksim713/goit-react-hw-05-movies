@@ -1,13 +1,16 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import css from './BackButton.module.css';
 
 function BackButton() {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const goBack = () => {
-    if (location.pathname !== '/') {
+    const previousPage = localStorage.getItem('previousPage');
+
+    if (previousPage) {
+      navigate(previousPage);
+    } else {
       navigate('/');
     }
   };
